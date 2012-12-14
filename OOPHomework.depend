@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1355384564 source:c:\users\fz\documents\github\oophomework\elevator.cpp
+	"elevator.h"
+
+1355451883 c:\users\fz\documents\github\oophomework\elevator.h
+
+1189868556 source:c:\users\fz\documents\github\oophomework\main.cpp
+	<iostream>
+
