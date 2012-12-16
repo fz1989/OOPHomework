@@ -1,4 +1,5 @@
-#include "elevator.h"
+#include "../include/Elevator.h"
+
 ElevatorInfo::ElevatorInfo(int inStart = 1,
                            int inLow = 1,
                            int inHigh = 40,
@@ -10,12 +11,14 @@ ElevatorInfo::ElevatorInfo(int inStart = 1,
     adder = inAdder;
 }
 
-bool ElevatorInfo::checkStay(int floor) {
+bool ElevatorInfo::checkStay(int floor)
+{
     if (floor == start) return true;
-    else {
+    else
+    {
         if (floor >= low
-            && floor <= high
-            && (floor - low) % adder == 0)
+                && floor <= high
+                && (floor - low) % adder == 0)
             return true;
         return false;
     }
@@ -23,17 +26,12 @@ bool ElevatorInfo::checkStay(int floor) {
 
 Elevator::Elevator(ElevatorInfo ineInfo):eInfo(ineInfo){};
 
-Elevator::openDoor(int floor) {
+bool Elevator::openDoor(int floor) {
     if (eInfo.checkStay(floor)) {
-        if (existPassengerDown()) {
-            for (int i = 0; i < 100; i++) {
-
-            }
-        }
     }
+    return true;
 }
 
-Elevator::acceptRequest(int floor) {
-
+bool Elevator::acceptRequest(int floor) {
+    return true;
 }
-

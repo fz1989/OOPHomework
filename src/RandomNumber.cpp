@@ -1,11 +1,14 @@
-#include "BaseLib.h"
-RandomNumber::RandomNumber(int inLow = 0, int inHigh = 1) {
+#include "../include/RandomNumber.h"
+
+RandomNumber::RandomNumber(int inLow = 0, int inHigh = 1)
+{
     low = inLow;
     high = inHigh;
     seed = (unsigned)time(NULL);
 }
 
-int RandomNumber::getRandomNumber() {
+int RandomNumber::getRandomNumber()
+{
     srand(seed);
     return rand() % (high - low + 1) + low;
 }

@@ -1,5 +1,7 @@
-#ifndef BASELIB_H_INCLUDED
-#define BASELIB_H_INCLUDED
+#ifndef RANDOMNUMBER_H
+#define RANDOMNUMBER_H
+
+
 #include <cstdlib>
 #include <ctime>
 class RandomNumber
@@ -12,4 +14,5 @@ public:
     void setRange(int, int);
     int getRandomNumber();
 };
-#endif // BASELIB_H_INCLUDED
+
+#endif // RANDOMNUMBER_H

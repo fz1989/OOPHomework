@@ -1,6 +1,9 @@
-#ifndef ELEVATOR_H_INCLUDED
-#define ELEVATOR_H_INCLUDED
-class ElevatorInfo {
+#ifndef ELEVATOR_H
+#define ELEVATOR_H
+
+
+class ElevatorInfo
+{
 private:
     int start, low, high, adder;
 public:
@@ -8,7 +11,7 @@ public:
     bool checkStay(int);
 };
 
-class Elevator {
+class Elevator{
 private:
     ElevatorInfo eInfo;
     int nowFloor, nowload, maxLoad;
@@ -18,4 +21,5 @@ public:
     Elevator(ElevatorInfo);
     void goNextFloor();
 };
-#endif // ELEVATOR_H_INCLUDED
+
+#endif // ELEVATOR_H

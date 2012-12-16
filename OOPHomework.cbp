@@ -32,9 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="elevator.cpp" />
-		<Unit filename="elevator.h" />
+		<Unit filename="include\BaseLib.h" />
+		<Unit filename="include\Elevator.h" />
+		<Unit filename="include\People.h" />
+		<Unit filename="include\RandomNumber.h" />
+		<Unit filename="include\TimeEvent.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src\BaseLib.cpp" />
+		<Unit filename="src\Elevator.cpp" />
+		<Unit filename="src\People.cpp" />
+		<Unit filename="src\RandomNumber.cpp" />
+		<Unit filename="src\TimeEvent.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
