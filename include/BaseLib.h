@@ -1,9 +1,5 @@
 #ifndef BASELIB_H
 #define BASELIB_H
-#include "../include/Elevator.h"
-#include "../include/People.h"
-#include "../include/RandomNumber.h"
-#include "../include/TimeEvent.h"
 class ElevatorSimulateSystem
 {
 private:

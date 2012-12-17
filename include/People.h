@@ -1,7 +1,7 @@
 #ifndef PEOPLE_H
 #define PEOPLE_H
 
-
+/*
 class People
 {
     public:
@@ -10,5 +10,5 @@ class People
     protected:
     private:
 };
-
+*/
 #endif // PEOPLE_H

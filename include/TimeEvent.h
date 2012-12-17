@@ -1,7 +1,6 @@
 #ifndef TIMEEVENT_H
 #define TIMEEVENT_H
 
-#include "../include/Elevator.h"
 
 class TimeEvent
 {
