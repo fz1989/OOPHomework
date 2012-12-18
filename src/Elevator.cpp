@@ -83,7 +83,6 @@ void Elevator::goNextFloor()
         direction = DOWN;
     }
     /**按原方向走**/
-    printf("%d\n", tmpStaytime);
     if (tmpStaytime != 0)
     {
         tmpStaytime--;
@@ -163,11 +162,7 @@ bool Elevator::acceptRequest(int destFloor)
 {
     /**如果能停并且非满载**/
     if (eInfo.checkStay(destFloor) && nowLoad < maxLoad)
-    {
-        /**加入行动列表**/
-        orderList.push_back(destFloor);
         return true;
-    }
     return false;
 }
 

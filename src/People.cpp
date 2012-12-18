@@ -67,7 +67,8 @@ void People::updateInfo(int nowTime)
             }
         }
     }
-    printf("nowtime is %d, nowFloor is %d, destFloor is %d\n", nowTime, nowFloor, destFloor);
+    //printf("%d\n", nowTime);
+    //printf("People's ID id %d nowtime is %d, nowFloor is %d, destFloor is %d\n", ID, nowTime, nowFloor, destFloor);
 }
 
 void People::setpElevSys(ElevatorSystem *ptr) {
