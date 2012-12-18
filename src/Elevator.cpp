@@ -35,22 +35,26 @@ bool ElevatorInfo::checkStay(int floor)
 /*****************************************
 *电梯类的构造函数
 *****************************************/
-Elevator::Elevator(ElevatorInfo ineInfo):eInfo(ineInfo) {};
+
+Elevator::Elevator(ElevatorInfo ineInfo):eInfo(ineInfo)
+{
+// TODO (fz#1#): 添加相应的初始化信息
+};
 
 /*****************************************
 *电梯走下一层
 *****************************************/
 void Elevator::goNextFloor()
 {
-    if (nowFloor == 1 && direction != 0)
+    if (nowFloor == 1 && direction != STAY)
     {
         /**底层向上走**/
-        direction = 1;
+        direction = UP;
     }
-    else if (nowFloor == 40 && direction != 0)
+    else if (nowFloor == 40 && direction != STAY)
     {
         /**顶层向下走**/
-        direction = -1;
+        direction = DOWN;
     }
     /**按原方向走**/
     nowFloor += direction * speed;
@@ -77,13 +81,15 @@ void Elevator::popOrder(int destFloor)
     if (orderList.size() == 0) direction = 0;
     else
     {
-        if (nowFloor < orderList[0]) {
+        if (nowFloor < orderList[0])
+        {
             /**高于当前则向上走**/
-            direction = -1;
+            direction = UP;
         }
-        else {
+        else
+        {
             /**低于当前则向下走**/
-            direction = 1;
+            direction = DOWN;
         }
     }
 }
@@ -112,7 +118,7 @@ bool Elevator::acceptRequest(int destFloor)
 }
 
 /*****************************************
-*电梯信息类的构造函数
+*获取电梯的当前载人情况
 *****************************************/
 int Elevator::getNowLoad()
 {
@@ -121,7 +127,7 @@ int Elevator::getNowLoad()
 }
 
 /*****************************************
-*电梯信息类的构造函数
+*设置电梯运行方向
 *****************************************/
 void Elevator::setDirection(int inDirect)
 {
@@ -151,11 +157,11 @@ void ElevatorSystem::timeNotify()
 }
 
 /*****************************************
-*电梯信息类的构造函数
+*获取指定电梯的楼层
 *****************************************/
 int ElevatorSystem::getFloor(int elevatorID)
 {
-    /**遍历所有空电梯**/
+    /**返回电梯当前所在楼层**/
     return elevatorList[elevatorID].getNowFloor();
 }
 
@@ -164,10 +170,10 @@ int ElevatorSystem::getFloor(int elevatorID)
 *****************************************/
 int ElevatorSystem::postOrder(int nowFloor, int destFloor)
 {
-    /**遍历所有空电梯**/
+    /**遍历所有电梯**/
     for (int i = 0; i < elevatorNum; i++)
     {
-        /**遍历所有空电梯**/
+        /**遍历所有manzu空电梯**/
         if (elevatorList[i].getNowFloor() == nowFloor && elevatorList[i].acceptRequest(destFloor))
         {
             /**遍历所有空电梯**/
@@ -204,13 +210,17 @@ void ElevatorSystem::selectElevator(int destFloor)
     if (elevatorList[loc].getNowFloor() - destFloor < 0)
     {
         /**低于当前向下**/
-        elevatorList[loc].setDirection(-1);
+        elevatorList[loc].setDirection(DOWN);
     }
     else
     {
         /**高于当前向上**/
-        elevatorList[loc].setDirection(1);
+        elevatorList[loc].setDirection(UP);
     }
 }
 
+void ElevatorSystem::leaveElevator(int elevID, int destFloor)
+{
+    elevatorList[elevID].popOrder(destFloor);
+}
 

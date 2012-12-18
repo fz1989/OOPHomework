@@ -1,5 +1,9 @@
 #ifndef BASELIB_H
 #define BASELIB_H
+
+#include "../include/TimeEvent.h"
+
+
 class ElevatorSimulateSystem
 {
 private:
@@ -8,7 +12,9 @@ private:
     int passangerStartTime;
     int secondPerFloor;
     int secondPerBoardElevator;
-
+    PeopleSystem PS;
+    TimeEvent TE;
+    ElevatorSystem ES;
 public:
     ElevatorSimulateSystem(int,int,int,int,int);
     void Start();

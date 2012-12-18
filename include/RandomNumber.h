@@ -10,6 +10,7 @@ private:
     time_t seed;
     int low, high;
 public:
+    RandomNumber(){};
     RandomNumber(int, int);
     void setRange(int, int);
     int getRandomNumber();

@@ -7,6 +7,9 @@
 #include <algorithm>
 using namespace std;
 
+#define UP  1
+#define DOWN -1
+#define STAY 0
 class ElevatorInfo
 {
 private:
@@ -19,7 +22,7 @@ public:
 class Elevator{
 private:
     ElevatorInfo eInfo;
-    int nowFloor, nowLoad, maxLoad, direction, speed;
+    int nowFloor, nowLoad, maxLoad, direction, speed, totalTime, emptyTime;
 	vector <int> orderList;
 public:
     Elevator(ElevatorInfo);
@@ -42,7 +45,7 @@ public:
 	void timeNotify();
 	int getFloor(int);
 	int postOrder(int, int);
-	int leaveElevator(int);
+	void leaveElevator(int, int);
 	void selectElevator(int);
 };
 

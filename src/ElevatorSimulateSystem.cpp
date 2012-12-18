@@ -1,4 +1,7 @@
-#include "../include/BaseLib.h"
+#include "../include/ElevatorSimulateSystem.h"
+#include "../include/People.h"
+#include "../include/Elevator.h"
+#include "../include/RandomNumber.h"
 
 ElevatorSimulateSystem::ElevatorSimulateSystem(int K,
         int N,
@@ -11,17 +14,18 @@ ElevatorSimulateSystem::ElevatorSimulateSystem(int K,
     passangerStartTime = M;
     secondPerFloor = S;
     secondPerBoardElevator = T;
+    TE.setTimeEventInfo(&PS, &ES);
+    PS.setPeopleSystemInfo(passangersNum, &ES);
 }
 
 bool ElevatorSimulateSystem::End()
 {
-    return true;
+    return PS.checkEnd();
 }
 
 void ElevatorSimulateSystem::Start()
 {
     while (!End()) {
-
+        TE.TimeBeat();
     }
-
 }
