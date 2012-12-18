@@ -1,11 +1,9 @@
 #include "../include/Elevator.h"
+#include <cstdio>
 /*****************************************
 *电梯信息类的构造函数
 *****************************************/
-ElevatorInfo::ElevatorInfo(int inStart = 1,
-                           int inLow = 1,
-                           int inHigh = 40,
-                           int inAdder = 1)
+ElevatorInfo::ElevatorInfo(int inStart = 1,int inLow = 1,int inHigh = 40,int inAdder = 1)
 {
     start = inStart;
     low = inLow;
@@ -35,29 +33,72 @@ bool ElevatorInfo::checkStay(int floor)
 /*****************************************
 *电梯类的构造函数
 *****************************************/
-
 Elevator::Elevator(ElevatorInfo ineInfo):eInfo(ineInfo)
 {
-// TODO (fz#1#): 添加相应的初始化信息
+    /**初始时的时间计时清零，负载清零**/
+    totalTime = 0;
+    emptyTime = 0;
+    /**设置电梯的行动方向，初始时为保持**/
+    direction = 0;
+    nowLoad = 0;
 };
+
+void Elevator::setElevatorInfo(int inMaxLoad, int inSpeed, int inStayTime)
+{
+    /**设置满载量**/
+    maxLoad = inMaxLoad;
+    /**设置上升速度**/
+    speed = inSpeed;
+    tmpSpeed = speed;
+    /**设置初始位置**/
+    RandomNumber num(1, 40);
+    /**设置电梯的停留时间**/
+    stayTime = inStayTime;
+    tmpStaytime = stayTime;
+    /**设置电梯的初始位置**/
+    nowFloor = num.getRandomNumber();
+}
 
 /*****************************************
 *电梯走下一层
 *****************************************/
 void Elevator::goNextFloor()
 {
-    if (nowFloor == 1 && direction != STAY)
+
+    /**总时间自增**/
+    totalTime++;
+    /**如果负载为空则空闲时间自增**/
+    if (nowLoad == 0)
     {
-        /**底层向上走**/
+        emptyTime++;
+    }
+    if (nowFloor == eInfo.getStart() && direction != STAY)
+    {
+        /**如果在底层，则需向上走**/
         direction = UP;
     }
-    else if (nowFloor == 40 && direction != STAY)
+    else if (nowFloor == eInfo.getHigh() && direction != STAY)
     {
-        /**顶层向下走**/
+        /**如果在顶层，则需向下走**/
         direction = DOWN;
     }
     /**按原方向走**/
-    nowFloor += direction * speed;
+    printf("%d\n", tmpStaytime);
+    if (tmpStaytime != 0)
+    {
+        tmpStaytime--;
+        if (tmpStaytime == 0)
+        {
+            tmpSpeed = speed;
+        }
+        return;
+    }
+    tmpSpeed--;
+    if (tmpSpeed == 0)
+    {
+        nowFloor += direction;
+        tmpSpeed = speed;
+    }
 }
 
 /*****************************************
@@ -66,7 +107,19 @@ void Elevator::goNextFloor()
 void Elevator::pushOrder(int destFloor)
 {
     /**加入电梯请求列表**/
+    tmpStaytime = stayTime;
     orderList.push_back(destFloor);
+    if (orderList.size() == 1)
+    {
+        if (orderList[0] > nowFloor)
+        {
+            direction = UP;
+        }
+        else
+        {
+            direction = DOWN;
+        }
+    }
 }
 
 /*****************************************
@@ -91,11 +144,12 @@ void Elevator::popOrder(int destFloor)
             /**低于当前则向下走**/
             direction = DOWN;
         }
+        tmpStaytime = stayTime;
     }
 }
 
 /*****************************************
-*返回当前算在楼层
+*返回当前所在楼层
 *****************************************/
 int Elevator::getNowFloor()
 {
@@ -188,39 +242,75 @@ int ElevatorSystem::postOrder(int nowFloor, int destFloor)
 /************************************************
 *为用户选择一个空的电梯，并改变被选择电梯的运行方向
 ************************************************/
-void ElevatorSystem::selectElevator(int destFloor)
+void ElevatorSystem::selectElevator(int srcFloor, int destFloor)
 {
     /**遍历所有空电梯**/
     int maxDiffer = 0x7fffffff, loc = -1;
     for (int i = 0; i < elevatorNum; i++)
     {
-        /**判断空电梯并选择能最快能到达电梯**/
-        if (elevatorList[i].getNowLoad() == 0 && elevatorList[i].canGo(destFloor))
+        /**判断空电梯并选择能最快能到达并且符合电梯的请求**/
+        if (elevatorList[i].getNowLoad() == 0
+                && elevatorList[i].canGo(destFloor)
+                && elevatorList[i].canGo(srcFloor))
         {
-            if (abs(elevatorList[i].getNowFloor() - destFloor) < maxDiffer)
+            if (abs(elevatorList[i].getNowFloor() - srcFloor) < maxDiffer)
             {
                 /**更新维护最小值**/
                 loc = i;
-                maxDiffer = abs(elevatorList[i].getNowFloor() -destFloor);
+                maxDiffer = abs(elevatorList[i].getNowFloor() - srcFloor);
             }
         }
     }
     /**非合法值直接返回**/
     if (loc == -1)  return;
-    if (elevatorList[loc].getNowFloor() - destFloor < 0)
+    if (elevatorList[loc].getNowFloor() - srcFloor < 0)
     {
-        /**低于当前向下**/
-        elevatorList[loc].setDirection(DOWN);
+        /**应当向上走**/
+        elevatorList[loc].setDirection(UP);
     }
     else
     {
-        /**高于当前向上**/
-        elevatorList[loc].setDirection(UP);
+        /**应当向下走**/
+        elevatorList[loc].setDirection(DOWN);
     }
 }
 
+/**********************************************************
+*乘客离开电梯
+***********************************************************/
 void ElevatorSystem::leaveElevator(int elevID, int destFloor)
 {
+    /**乘客离开电梯处理函数**/
     elevatorList[elevID].popOrder(destFloor);
+}
+
+/***********************************************************
+*初始化电梯系统信息
+************************************************************/
+void ElevatorSystem::setElevatorSysInfo(int num, int maxLoad, int inSpeed, int instayTime)
+{
+    /**E0，E1的初始化**/
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,40,1)));
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,40,1)));
+    /**E2，E3的初始化**/
+    elevatorList.push_back(Elevator(ElevatorInfo(1,25,40,1)));
+    elevatorList.push_back(Elevator(ElevatorInfo(1,25,40,1)));
+    /**E4，E5的初始化**/
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,25,1)));
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,25,1)));
+    /**E6，E7的初始化**/
+    elevatorList.push_back(Elevator(ElevatorInfo(1,2,40,2)));
+    elevatorList.push_back(Elevator(ElevatorInfo(1,2,40,2)));
+    /**E8，E9的初始化**/
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,39,2)));
+    elevatorList.push_back(Elevator(ElevatorInfo(1,1,39,2)));
+    /**s设置电梯的相应参数**/
+    for (int i = 0; i < 10; i++)
+    {
+        elevatorList[i].setElevatorInfo(maxLoad, inSpeed, instayTime);
+    }
+    elevatorNum = num;
+    elevatorMaxload = maxLoad;
+    speed = inSpeed;
 }
 

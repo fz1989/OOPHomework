@@ -4,7 +4,7 @@ RandomNumber::RandomNumber(int inLow = 0, int inHigh = 1)
 {
     low = inLow;
     high = inHigh;
-    seed = (unsigned)time(NULL);
+    seed = (unsigned)time(NULL) + rand();
 }
 
 int RandomNumber::getRandomNumber()

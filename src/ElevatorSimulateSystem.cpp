@@ -3,11 +3,7 @@
 #include "../include/Elevator.h"
 #include "../include/RandomNumber.h"
 
-ElevatorSimulateSystem::ElevatorSimulateSystem(int K,
-        int N,
-        int M,
-        int S,
-        int T)
+ElevatorSimulateSystem::ElevatorSimulateSystem(int K, int N, int M, int S,int T)
 {
     maxPsaaangersPerElevator = K;
     passangersNum = N;
@@ -15,7 +11,8 @@ ElevatorSimulateSystem::ElevatorSimulateSystem(int K,
     secondPerFloor = S;
     secondPerBoardElevator = T;
     TE.setTimeEventInfo(&PS, &ES);
-    PS.setPeopleSystemInfo(passangersNum, &ES);
+    PS.setPeopleSystemInfo(passangersNum, passangerStartTime, &ES);
+    ES.setElevatorSysInfo(10, K, S, T);
 }
 
 bool ElevatorSimulateSystem::End()
@@ -25,7 +22,8 @@ bool ElevatorSimulateSystem::End()
 
 void ElevatorSimulateSystem::Start()
 {
-    while (!End()) {
+    while (!End())
+    {
         TE.TimeBeat();
     }
 }

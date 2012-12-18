@@ -12,7 +12,7 @@ using namespace std;
 class People
 {
 private:
-    int state, needTime, takeTimes;
+    int state, needTime, takeTimes, ID;
     int destFloor, nowFloor, elevID;
     vector <int> requestTime;
 	vector <int> acceptedTime;
@@ -20,7 +20,7 @@ private:
 	// TODO (fz#1#): 此处变量修改为static
 public:
     People();
-	People(int);
+	People(int, int);
     void setDestInfo();
     int getRemainTimes();
 	void updateInfo(int);
@@ -35,7 +35,7 @@ private:
     int peopleNum;
 public:
     PeopleSystem(){};
-    void setPeopleSystemInfo(int, ElevatorSystem*);
+    void setPeopleSystemInfo(int, int, ElevatorSystem*);
     void timeNotify(int);
     bool checkEnd();
 };

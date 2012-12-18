@@ -1,12 +1,21 @@
 #include "../include/People.h"
-
-People::People()
+#include <cstdio>
+/*******************************************
+*人员信息的构造函数
+*******************************************/
+People::People(int MOD, int inID)
 {
+    /**设置人的ID**/
+    ID = inID;
+    /**初始时没有动作**/
     state = NOTSTART;
-    RandomNumber num(1, 600);
+    /**设置到来时间**/
+    RandomNumber num(1, MOD * 60);
     needTime = num.getRandomNumber();
+    /**设置总共请求次数**/
     RandomNumber times(1, 10);
     takeTimes = times.getRandomNumber() + 1;
+    /**设置初始所在楼层和目标楼层**/
     nowFloor = 1;
     destFloor = -1;
 }
@@ -14,14 +23,12 @@ People::People()
 void People::setDestInfo()
 {
     state = WAITING;
-    RandomNumber num;
+    RandomNumber num(2, 40);
     if (takeTimes == 1)
     {
         destFloor = 1;
-    }
-    else
-    {
-        num.setRange(1, 40);
+        takeTimes--;
+        return;
     }
     takeTimes--;
     destFloor = num.getRandomNumber();
@@ -32,7 +39,10 @@ int People::getRemainTimes() {
 }
 void People::updateInfo(int nowTime)
 {
-    needTime--;
+    if (takeTimes < 0)  return;
+    if (needTime > 0) {
+        needTime--;
+    }
     if (needTime == 0) {
         if (state == NOTSTART) {
             state = WAITING;
@@ -40,7 +50,7 @@ void People::updateInfo(int nowTime)
             setDestInfo();
         }
         if (state == WAITING) {
-            pElevSys->selectElevator(destFloor);
+            pElevSys->selectElevator(nowFloor, destFloor);
             elevID = pElevSys->postOrder(nowFloor, destFloor);
             if (elevID != -1) {
                 state = INUSING;
@@ -57,16 +67,17 @@ void People::updateInfo(int nowTime)
             }
         }
     }
+    printf("nowtime is %d, nowFloor is %d, destFloor is %d\n", nowTime, nowFloor, destFloor);
 }
 
 void People::setpElevSys(ElevatorSystem *ptr) {
     pElevSys = ptr;
 }
 
-void PeopleSystem::setPeopleSystemInfo(int inNum, ElevatorSystem *ptr) {
+void PeopleSystem::setPeopleSystemInfo(int inNum, int MOD, ElevatorSystem *ptr) {
     peopleNum = inNum;
     for (int i = 0; i < peopleNum; i++) {
-        peopleList.push_back(People());
+        peopleList.push_back(People(MOD, i));
     }
     pElevSys = ptr;
     for (int i = 0; i < peopleNum; i++) {
@@ -83,7 +94,7 @@ void PeopleSystem::timeNotify(int nowTime) {
 
 bool PeopleSystem::checkEnd() {
     for (int i = 0; i < peopleNum; i++) {
-        if (peopleList[i].getRemainTimes() != 0)    return false;
+        if (peopleList[i].getRemainTimes() >= 0)    return false;
     }
     return true;
 }

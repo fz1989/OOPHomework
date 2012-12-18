@@ -4,8 +4,9 @@
 
 1355643278 c:\users\fz\documents\github\oophomework\elevator.h
 
-1189868556 source:c:\users\fz\documents\github\oophomework\main.cpp
+1355816956 source:c:\users\fz\documents\github\oophomework\main.cpp
 	<iostream>
+	"./include/ElevatorSimulateSystem.h"
 
 1355640401 source:c:\users\fz\documents\github\oophomework\timeevent.cpp
 
@@ -14,36 +15,40 @@
 
 1355746402 c:\users\fz\documents\github\oophomework\include\baselib.h
 
-1355801057 source:c:\users\fz\documents\github\oophomework\src\elevator.cpp
+1355837325 source:c:\users\fz\documents\github\oophomework\src\elevator.cpp
 	"../include/Elevator.h"
+	<cstdio>
 
-1355797557 c:\users\fz\documents\github\oophomework\include\elevator.h
+1355836015 c:\users\fz\documents\github\oophomework\include\elevator.h
 	<vector>
 	<queue>
 	<list>
 	<algorithm>
+	"../include/RandomNumber.h"
 
-1355801097 source:c:\users\fz\documents\github\oophomework\src\people.cpp
+1355836695 source:c:\users\fz\documents\github\oophomework\src\people.cpp
 	"../include/People.h"
+	<cstdio>
 
-1355802277 c:\users\fz\documents\github\oophomework\include\people.h
+1355820086 c:\users\fz\documents\github\oophomework\include\people.h
 	"../include/Elevator.h"
 	"../include/RandomNumber.h"
 	<vector>
 	<algorithm>
 
-1355801570 source:c:\users\fz\documents\github\oophomework\src\timeevent.cpp
+1355819915 source:c:\users\fz\documents\github\oophomework\src\timeevent.cpp
 	"../include/TimeEvent.h"
+	<cstdio>
 
 1355801428 c:\users\fz\documents\github\oophomework\include\timeevent.h
 	"../include/People.h"
 	"../include/Elevator.h"
 
-1355799293 c:\users\fz\documents\github\oophomework\include\randomnumber.h
+1355823606 c:\users\fz\documents\github\oophomework\include\randomnumber.h
 	<cstdlib>
 	<ctime>
 
-1355644920 source:c:\users\fz\documents\github\oophomework\src\randomnumber.cpp
+1355821682 source:c:\users\fz\documents\github\oophomework\src\randomnumber.cpp
 	"../include/RandomNumber.h"
 
 1355796257 source:c:\users\fz\documents\github\oophomework\src\clocktime.cpp
@@ -51,7 +56,7 @@
 
 1355796241 c:\users\fz\documents\github\oophomework\include\clocktime.h
 
-1355802462 source:c:\users\fz\documents\github\oophomework\src\elevatorsimulatesystem.cpp
+1355830939 source:c:\users\fz\documents\github\oophomework\src\elevatorsimulatesystem.cpp
 	"../include/ElevatorSimulateSystem.h"
 	"../include/People.h"
 	"../include/Elevator.h"
