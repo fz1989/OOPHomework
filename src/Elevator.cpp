@@ -5,9 +5,13 @@
 *****************************************/
 ElevatorInfo::ElevatorInfo(int inStart = 1,int inLow = 1,int inHigh = 40,int inAdder = 1)
 {
+    /**start为起始楼层**/
     start = inStart;
+    /**除起始楼层以外的最低楼层**/
     low = inLow;
+    /**电梯能到达的最高层**/
     high = inHigh;
+    /**每次能向上走的步长**/
     adder = inAdder;
 }
 
@@ -40,6 +44,7 @@ Elevator::Elevator(ElevatorInfo ineInfo):eInfo(ineInfo)
     emptyTime = 0;
     /**设置电梯的行动方向，初始时为保持**/
     direction = 0;
+    /**初始人员负载为0**/
     nowLoad = 0;
 };
 
@@ -82,16 +87,18 @@ void Elevator::goNextFloor()
         /**如果在顶层，则需向下走**/
         direction = DOWN;
     }
-    /**按原方向走**/
+    /**如果有人上下则应该等待**/
     if (tmpStaytime != 0)
     {
         tmpStaytime--;
         if (tmpStaytime == 0)
         {
+            /**上下人完毕则应开始启动，重新复制速度变量**/
             tmpSpeed = speed;
         }
         return;
     }
+    /**电梯正常上下行进则应当计算何时上下楼**/
     tmpSpeed--;
     if (tmpSpeed == 0)
     {
@@ -105,18 +112,23 @@ void Elevator::goNextFloor()
 *****************************************/
 void Elevator::pushOrder(int destFloor)
 {
-    /**加入电梯请求列表**/
+    /**有人要上则应加上等待时间**/
     tmpStaytime += stayTime;
+    /**加入电梯请求列表**/
     orderList.push_back(destFloor);
+    /**负载人数自增**/
     nowLoad++;
+    /**只有一个人则应该决定电梯运行的方向**/
     if (orderList.size() == 1)
     {
         if (orderList[0] > nowFloor)
         {
+            /**向上走**/
             direction = UP;
         }
         else
         {
+            /**向下走**/
             direction = DOWN;
         }
     }
@@ -145,6 +157,7 @@ void Elevator::popOrder(int destFloor)
             /**低于当前则向下走**/
             direction = DOWN;
         }
+        /**有人要下则应当加上等待时间**/
         tmpStaytime += stayTime;
     }
 }
@@ -203,6 +216,7 @@ void ElevatorSystem::timeNotify()
     /**遍历所有电梯**/
     for (int i = 0; i < elevatorNum; i++)
     {
+        /**通知所有电梯进行下一步操作**/
         elevatorList[i].goNextFloor();
     }
 }

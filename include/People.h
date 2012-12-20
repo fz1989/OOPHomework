@@ -18,6 +18,7 @@ public:
     vector <int> requestTime;
 	vector <int> acceptedTime;
 	ElevatorSystem *pElevSys;
+	int totalTime;
 	// TODO (fz#1#): 此处变量修改为static
 public:
     People();

@@ -15,6 +15,7 @@ People::People(int MOD, int inID)
     /**设置总共请求次数**/
     RandomNumber times(1, 10);
     takeTimes = times.getRandomNumber() + 1;
+    totalTime = takeTimes - 1;
     /**设置初始所在楼层和目标楼层**/
     nowFloor = 1;
     destFloor = -1;
@@ -120,8 +121,8 @@ bool PeopleSystem::checkEnd()
         int sum = 0;
         //if (peopleList[i].requestTime.size() == peopleList[i].acceptedTime.size())
         //{
-            printf("------------------people %d--------------\n", i);
-            for (int j = 0; j < peopleList[i].acceptedTime.size(); j++)
+            printf("------------------people %d take elevator %d time(s)--------------\n", i, peopleList[i].totalTime);
+            for (int j = 0; j < (int)peopleList[i].acceptedTime.size(); j++)
             {
                 printf("%d %d\n", peopleList[i].acceptedTime[j], peopleList[i].requestTime[j]);
                 sum += (peopleList[i].acceptedTime[j] - peopleList[i].requestTime[j]);
