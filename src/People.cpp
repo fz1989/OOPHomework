@@ -34,32 +34,40 @@ void People::setDestInfo()
     destFloor = num.getRandomNumber();
 
 }
-int People::getRemainTimes() {
+int People::getRemainTimes()
+{
     return takeTimes;
 }
 void People::updateInfo(int nowTime)
 {
     if (takeTimes < 0)  return;
-    if (needTime > 0) {
+    if (needTime > 0)
+    {
         needTime--;
     }
-    if (needTime == 0) {
-        if (state == NOTSTART) {
+    if (needTime == 0)
+    {
+        if (state == NOTSTART)
+        {
             state = WAITING;
             requestTime.push_back(nowTime);
             setDestInfo();
         }
-        if (state == WAITING) {
+        if (state == WAITING)
+        {
             pElevSys->selectElevator(nowFloor, destFloor);
             elevID = pElevSys->postOrder(nowFloor, destFloor);
-            if (elevID != -1) {
+            if (elevID != -1)
+            {
                 state = INUSING;
                 acceptedTime.push_back(nowTime);
             }
         }
-        if (state == INUSING) {
+        if (state == INUSING)
+        {
             nowFloor = pElevSys->getFloor(elevID);
-            if (nowFloor == destFloor) {
+            if (nowFloor == destFloor)
+            {
                 pElevSys->leaveElevator(elevID, destFloor);
                 state = NOTSTART;
                 RandomNumber num(10, 120);
@@ -68,35 +76,61 @@ void People::updateInfo(int nowTime)
         }
     }
     //printf("%d\n", nowTime);
-    //printf("People's ID id %d nowtime is %d, nowFloor is %d, destFloor is %d\n", ID, nowTime, nowFloor, destFloor);
+    //fprintf(stderr, "People's ID id is %d\t nowtime is %d\t state is %d\t needTime is %d\t nowFloor is %d\t destFloor is %d\t takeTimes is %d\n", ID, nowTime,state, needTime,  nowFloor, destFloor, takeTimes);
 }
 
-void People::setpElevSys(ElevatorSystem *ptr) {
+void People::setpElevSys(ElevatorSystem *ptr)
+{
     pElevSys = ptr;
 }
 
-void PeopleSystem::setPeopleSystemInfo(int inNum, int MOD, ElevatorSystem *ptr) {
+void PeopleSystem::setPeopleSystemInfo(int inNum, int MOD, ElevatorSystem *ptr)
+{
     peopleNum = inNum;
-    for (int i = 0; i < peopleNum; i++) {
+    for (int i = 0; i < peopleNum; i++)
+    {
         peopleList.push_back(People(MOD, i));
     }
     pElevSys = ptr;
-    for (int i = 0; i < peopleNum; i++) {
-        peopleList[i].setDestInfo();
+    for (int i = 0; i < peopleNum; i++)
+    {
+        //peopleList[i].setDestInfo();
         peopleList[i].setpElevSys(ptr);
     }
 }
 
-void PeopleSystem::timeNotify(int nowTime) {
-    for (int i = 0; i < peopleNum; i++) {
+void PeopleSystem::timeNotify(int nowTime)
+{
+    for (int i = 0; i < peopleNum; i++)
+    {
         peopleList[i].updateInfo(nowTime);
     }
 }
 
-bool PeopleSystem::checkEnd() {
-    for (int i = 0; i < peopleNum; i++) {
+bool PeopleSystem::checkEnd()
+{
+    for (int i = 0; i < peopleNum; i++)
+    {
         if (peopleList[i].getRemainTimes() >= 0)    return false;
     }
+    int ret = 0;
+    freopen("test.out", "w", stdout);
+    for (int i = 0; i < peopleNum; i++)
+    {
+        int sum = 0;
+        //if (peopleList[i].requestTime.size() == peopleList[i].acceptedTime.size())
+        //{
+            printf("------------------people %d--------------\n", i);
+            for (int j = 0; j < peopleList[i].acceptedTime.size(); j++)
+            {
+                printf("%d %d\n", peopleList[i].acceptedTime[j], peopleList[i].requestTime[j]);
+                sum += (peopleList[i].acceptedTime[j] - peopleList[i].requestTime[j]);
+            }
+            ret += sum;
+            printf("%d\n", sum);
+       // }
+    }
+    printf("%d\n", ret / peopleNum);
     return true;
 }
 

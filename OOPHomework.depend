@@ -4,9 +4,11 @@
 
 1355643278 c:\users\fz\documents\github\oophomework\elevator.h
 
-1355816956 source:c:\users\fz\documents\github\oophomework\main.cpp
+1355973880 source:c:\users\fz\documents\github\oophomework\main.cpp
 	<iostream>
 	"./include/ElevatorSimulateSystem.h"
+	<cstdlib>
+	<cstdio>
 
 1355640401 source:c:\users\fz\documents\github\oophomework\timeevent.cpp
 
@@ -15,7 +17,7 @@
 
 1355746402 c:\users\fz\documents\github\oophomework\include\baselib.h
 
-1355838190 source:c:\users\fz\documents\github\oophomework\src\elevator.cpp
+1355975134 source:c:\users\fz\documents\github\oophomework\src\elevator.cpp
 	"../include/Elevator.h"
 	<cstdio>
 
@@ -26,17 +28,17 @@
 	<algorithm>
 	"../include/RandomNumber.h"
 
-1355836695 source:c:\users\fz\documents\github\oophomework\src\people.cpp
+1355975932 source:c:\users\fz\documents\github\oophomework\src\people.cpp
 	"../include/People.h"
 	<cstdio>
 
-1355820086 c:\users\fz\documents\github\oophomework\include\people.h
+1355969915 c:\users\fz\documents\github\oophomework\include\people.h
 	"../include/Elevator.h"
 	"../include/RandomNumber.h"
 	<vector>
 	<algorithm>
 
-1355819915 source:c:\users\fz\documents\github\oophomework\src\timeevent.cpp
+1355976079 source:c:\users\fz\documents\github\oophomework\src\timeevent.cpp
 	"../include/TimeEvent.h"
 	<cstdio>
 

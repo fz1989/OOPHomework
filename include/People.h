@@ -14,6 +14,7 @@ class People
 private:
     int state, needTime, takeTimes, ID;
     int destFloor, nowFloor, elevID;
+public:
     vector <int> requestTime;
 	vector <int> acceptedTime;
 	ElevatorSystem *pElevSys;

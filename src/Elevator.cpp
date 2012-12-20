@@ -54,7 +54,7 @@ void Elevator::setElevatorInfo(int inMaxLoad, int inSpeed, int inStayTime)
     RandomNumber num(1, 40);
     /**设置电梯的停留时间**/
     stayTime = inStayTime;
-    tmpStaytime = stayTime;
+    tmpStaytime = 0;
     /**设置电梯的初始位置**/
     nowFloor = num.getRandomNumber();
 }
@@ -106,8 +106,9 @@ void Elevator::goNextFloor()
 void Elevator::pushOrder(int destFloor)
 {
     /**加入电梯请求列表**/
-    tmpStaytime = stayTime;
+    tmpStaytime += stayTime;
     orderList.push_back(destFloor);
+    nowLoad++;
     if (orderList.size() == 1)
     {
         if (orderList[0] > nowFloor)
@@ -129,6 +130,7 @@ void Elevator::popOrder(int destFloor)
     /**找到记录当前信息的位置**/
     vector<int> :: iterator  it = find(orderList.begin(), orderList.end(), destFloor);
     orderList.erase(it);
+    nowLoad--;
     /**变成空梯则停留**/
     if (orderList.size() == 0) direction = 0;
     else
@@ -143,7 +145,7 @@ void Elevator::popOrder(int destFloor)
             /**低于当前则向下走**/
             direction = DOWN;
         }
-        tmpStaytime = stayTime;
+        tmpStaytime += stayTime;
     }
 }
 

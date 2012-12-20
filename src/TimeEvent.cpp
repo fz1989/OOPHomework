@@ -12,7 +12,7 @@ void TimeEvent::setTimeEventInfo(PeopleSystem *ptr1, ElevatorSystem *ptr2) {
 
 void TimeEvent::TimeBeat() {
     Time++;
-    printf("%d\n", Time);
+    //printf("%d\n", Time);
     pElevSys->timeNotify();
     pPeople->timeNotify(Time);
 
