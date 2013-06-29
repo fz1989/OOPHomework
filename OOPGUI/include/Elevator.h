@@ -58,9 +58,9 @@ public:
     /**
     * @brief	ElevatorInfo的构造函数
     * @param	inStart 传入start
-	* @param	inLow	传入low
-	* @param	inHigh	传入high
-	* @param	inAdder	传入adder
+    * @param	inLow	传入low
+    * @param	inHigh	传入high
+    * @param	inAdder	传入adder
     */
     ElevatorInfo(int, int, int, int);
     /**
@@ -111,17 +111,17 @@ public:
     * @brief	电梯将destfloor压入order运行队列中
     * @param	destFloor 	目标楼层
     */
-	void pushOrder(int);
-	/**
+    void pushOrder(int);
+    /**
     * @brief	弹出到达destfloor的order
     * @param	destFloor 	目标楼层
     */
-	void popOrder(int);
-	/**
+    void popOrder(int);
+    /**
     * @brief	获得nowFloor的值
     * @return	nowFloor的值
     */
-	int getNowFloor();
+    int getNowFloor();
     /**
     * @brief	电梯走下一步动作，更新状态
     */
@@ -145,8 +145,8 @@ public:
     /**
     * @brief	设置电梯参数
     * @param	inMaxLoad	传入最大负载
-	* @param	inSpeed		传入最大速度
-	* @param	inStayTime	传入等待时间
+    * @param	inSpeed		传入最大速度
+    * @param	inStayTime	传入等待时间
     */
     void setElevatorInfo(int,int,int);
     /**
@@ -172,55 +172,55 @@ private:
 	/**电梯列表**/
 	vector <Elevator> elevatorList;
 public:
-	/**
+    /**
     * @brief	时间通知函数，更新状态
     */
-	void timeNotify();
-	/**
+    void timeNotify();
+    /**
     * @brief	返回指定floorID的所在楼层
     * @param	elevatorID	电梯ID
     * @return	指定floorID的所在楼层
     */
-	int getFloor(int);
-	/**
+    int getFloor(int);
+    /**
     * @brief	发送请求
     * @param	nowFloor	所在的楼层
-	* @param	destFloor	目标楼层
+    * @param	destFloor	目标楼层
     * @return	如果成功返回相应ID，否则是-1
     */
-	int postOrder(int, int);
-	/**
+    int postOrder(int, int);
+    /**
     * @brief	离开电梯
     * @param	elevID		离开电梯ID
-	* @param	destFloor	目标楼层
+    * @param	destFloor	目标楼层
     */
-	void leaveElevator(int, int);
-	/**
+    void leaveElevator(int, int);
+    /**
     * @brief	选择空的电梯，并改变其运动状态
     * @param	srcFloor	起始楼层
-	* @param	destFloor	目标楼层
+    * @param	destFloor	目标楼层
     */
-	void selectElevator(int, int);
-	/**
+    void selectElevator(int, int);
+    /**
     * @brief 	设置电梯的参数
     * @param	num				传入num参数
-	* @param	maxLoad			传入maxLoad参数
-	* @param	inSpeed			传入Speed参数
-	* @param	instayTime		传入stayTime参数
+    * @param	maxLoad			传入maxLoad参数
+    * @param	inSpeed			传入Speed参数
+    * @param	instayTime		传入stayTime参数
     */
-	void setElevatorSysInfo(int, int, int, int);
-	/**
+    void setElevatorSysInfo(int, int, int, int);
+    /**
     * @brief	返回总时间
     * @param	inElevID		传入ElevID
     * @return	totalTime的值
     */
-	int getTotalTime(int) ;
-	/**
+    int getTotalTime(int) ;
+    /**
     * @brief	返回总时间
     * @param	inElevID		传入ElevID
     * @return	totalTime的值
     */
-	int getEmptyTime(int);
+    int getEmptyTime(int);
 };
 
 #endif // ELEVATOR_H
