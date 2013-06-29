@@ -73,15 +73,16 @@ public:
 
 class Elevator{
 private:
-	/**电梯运行规则**/
+
+    /**电梯运行规则**/
     ElevatorInfo eInfo;
-	/**电梯当前位置**/
+    /**电梯当前位置**/
     int nowFloor;
-	/**电梯当前负载**/
-	int nowLoad;
-	/**电梯最大负载**/
-	int maxLoad;
-	/**电梯运行方向**/
+    /**电梯当前负载**/
+    int nowLoad;
+    /**电梯最大负载**/
+    int maxLoad;
+    /**电梯运行方向**/
 	int	direction;
 	/**电梯运行速度标示**/
     int speed;
